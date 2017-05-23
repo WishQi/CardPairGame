@@ -4,6 +4,8 @@
 
 $(
     function () {
+
+        var opendCard = null
         var images = [
             'buluke',
             'furank',
@@ -16,17 +18,23 @@ $(
             'weiwei',
             'xiangkesi'
         ]
-
         var cards = images.concat(images.slice(0))
 
-        function shuffle(o) {
-            for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-            return o;
-        }
-        shuffle(cards)
-        console.log(cards)
-        
-        var opendCard = null
+        $('.card').each(function(index, ele) {
+            $(ele).addClass('back-card').click(function() {
+                let classes = $(this).attr('class').split(' ')
+                if (classes.indexOf('front-card') >= 0) {
+                    console.log('front-back')
+                    reverseToBack($(this))
+                    opendCard = null
+                } else {
+                    console.log('back-front')
+                    reverseToFront($(this), cards[index])
+                    console.log(index)
+                    compare($(this))
+                }
+            })
+        })
 
         function isSame(card) {
             if (card.attr('id') == opendCard.attr('id')) {
@@ -42,10 +50,15 @@ $(
             } else {
                 if (isSame(card)) {
                     console.log('same')
-                } else {
-                    reverseToBack(opendCard)
-                    reverseToBack(card)
+                    card.unbind()
+                    opendCard.unbind()
                     opendCard = null
+                } else {
+                    setTimeout(function () {
+                        reverseToBack(opendCard)
+                        reverseToBack(card)
+                        opendCard = null
+                    }, 500)
                 }
             }
         }
@@ -65,22 +78,26 @@ $(
             console.log("reverse to back")
         }
 
-        $('.card').each(function(index, ele) {
-            // console.log($(el))
-            $(ele).addClass('back-card').click(function() {
-                let classes = $(this).attr('class').split(' ')
-                if (classes.indexOf('front-card') >= 0) {
-                    console.log('front-back')
-                    reverseToBack($(this))
-                    opendCard = null
-                } else {
-                    console.log('back-front')
-                    reverseToFront($(this), images[index])
-                    compare($(this))
-                }
+        function shuffle(o) {
+            for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+            return o;
+        }
+        shuffle(cards)
+        console.log(cards)
+
+        console.log($('#start-btn'))
+
+        $('#start-btn').click(function() {
+            console.log("xiix")
+            $('.card').each(function(index, ele) {
+                reverseToFront($(ele), cards[index])
             })
+            setTimeout(function () {
+                $('.card').each(function(index, ele) {
+                    reverseToBack($(ele))
+                })
+                // $(this).disabled = true
+            }, 2000)
         })
     }
 )
-
-
