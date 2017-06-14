@@ -82,13 +82,9 @@ $(
             for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
             return o;
         }
-        shuffle(cards)
-        console.log(cards)
-
-        console.log($('#start-btn'))
 
         $('#start-btn').click(function() {
-            console.log("xiix")
+            shuffle(cards)
             $('.card').each(function(index, ele) {
                 reverseToFront($(ele), cards[index])
             })
