@@ -1,0 +1,135 @@
+/*@import "compass/css3";*/
+
+/* -------------------
+ Loader CSS
+------------------- */
+.circular{
+    height: 200px;
+    width: 200px;
+}
+
+
+.path {
+    stroke-dasharray: 1,200;
+    stroke-dashoffset: 0;
+    animation: dash 2s infinite;
+    stroke-linecap: round;
+    stroke: #f28705;
+}
+
+
+@keyframes dash{
+
+    0%, 50% { transition-timing-function: ease-out; }
+    75%, 100% { transition-timing-function: ease-in;}
+
+    0%{
+        stroke-dasharray: 1,600;
+        stroke-dashoffset: 0;
+        opacity: 0;
+    }
+    25%{
+        opacity: 1;
+    }
+    50%{
+        stroke-dasharray: 600,600;
+        stroke-dashoffset: 0;
+        opacity:1;
+    }
+    75%{
+        opacity: 1;
+    }
+    100%{
+        stroke-dasharray: 700,600;
+        stroke-dashoffset: -600;
+        opacity: 0;
+    }
+}
+
+@keyframes numberscale{
+    0%,10% {
+        transform: scale(1);
+        opacity: 0;
+    }
+    25%,50%{
+        opacity: 1;
+    }
+    90%,100% {
+        transform: scale(0.75);
+        opacity:0;
+    }
+}
+
+.countdownNumber{
+    animation: 1s numberscale ease-out infinite;
+}
+.hide .countdownNumber,
+.hide .path {
+    opacity: 0 !important;
+    animation: none;
+}
+
+.countdownNumber{
+    text-align: center;
+    font-size: 8rem;
+    line-height: 12rem;
+    font-weight: bold;
+    color: white;
+    margin:0;
+}
+
+
+.countdownContainer{
+    position: relative;
+    background-color: rgba(218, 218, 218, 0.1);
+    border-radius: 50%;
+    width: 12rem;
+    height: 12rem;
+    border: 6px solid white;
+    box-sizing:border-box;
+}
+
+
+.hide{
+    opacity: 0;
+    transition: opacity 0.3s ease-out 0s;
+}
+
+/* -------------------
+ Existing css classes
+------------------- */
+
+.center {
+    display: flex;;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: stretch;
+    align-items: center;
+}
+
+.full-width-height { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+
+.cross:before,.cross:after{
+    content: '';
+    position: absolute;
+    background-color: rgba(#eee, 0.25);
+}
+.cross:before{
+    width:1px;
+    height: 100%;
+    top:0;
+    left:49.99999%;
+    left:calc(50% - 1px);
+}
+.cross:after{
+    height:1px;
+    width:100%;
+    left:0;
+    top: 49.99999%;
+    top: calc(50% - 1px);
+}
+
+#count-down-part {
+    z-index: 3;
+}
