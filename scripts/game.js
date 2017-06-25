@@ -60,6 +60,8 @@ $(
         }
 
         function reset() {
+            seconds = 0;
+            tens = 0;
             appendSeconds.innerHTML = '00'
             appendTens.innerHTML = '00'
             clearInterval(timer)
@@ -168,9 +170,15 @@ $(
             console.log("reverse to back")
         }
 
-        // 随机排列照片的位置
+        // 随机排列图片的位置
         function shuffle(o) {
-            for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+            for (var j, x, i = o.length; i > 0; ) {
+                j = Math.floor(Math.random() * i)
+                x = o[--i]
+                o[i] = o[j]
+                o[j] = x;
+            }
+            // for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
             return o;
         }
 
